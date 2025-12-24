@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-// å®šä¹‰æ£€æµ‹ç»“æœç»“æ„ä½“
+// ¶¨Òå¼ì²â½á¹û½á¹¹Ìå
 struct Detection {
     int class_id;
     float confidence;
@@ -15,10 +15,10 @@ struct Detection {
 
 class Detector {
 public:
-    // æ„é€ å‡½æ•°ï¼šåŠ è½½æ¨¡å‹å¹¶é…ç½® CUDA
+    // ¹¹Ôìº¯Êı£º¼ÓÔØÄ£ĞÍ²¢ÅäÖÃ CUDA
     Detector(const std::string& model_path, bool use_cuda = true);
 
-    // æ¨ç†å‡½æ•°ï¼šè¾“å…¥å›¾åƒï¼Œè¿”å›æ£€æµ‹åˆ°çš„ç›®æ ‡åˆ—è¡¨
+    // ÍÆÀíº¯Êı£ºÊäÈëÍ¼Ïñ£¬·µ»Ø¼ì²âµ½µÄÄ¿±êÁĞ±í
     std::vector<Detection> run_inference(const cv::Mat& frame);
 
 private:

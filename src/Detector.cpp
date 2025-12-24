@@ -11,15 +11,15 @@ Detector::Detector(const std::string& model_path, bool use_cuda) {
 std::vector<Detection> Detector::run_inference(const cv::Mat& frame) {
     std::vector<Detection> detections;
 
-    // 1. é¢„å¤„ç† (Blob)
+    // 1. Ô¤´¦Àí (Blob)
     cv::Mat blob = cv::dnn::blobFromImage(frame, 1.0 / 255.0, input_size, cv::Scalar(), true, false);
     net.setInput(blob);
 
-    // 2. å‰å‘ä¼ æ’­
+    // 2. Ç°Ïò´«²¥
     std::vector<cv::Mat> outs;
     net.forward(outs, net.getUnconnectedOutLayersNames());
 
-    // 3. åå¤„ç† YOLOv8 è¾“å‡º [1, 5, 8400]
+    // 3. ºó´¦Àí YOLOv8 Êä³ö [1, 5, 8400]
     cv::Mat output = outs[0];
     if (output.dims == 3) {
         output = output.reshape(1, output.size[1]); // [5, 8400]
@@ -48,11 +48,11 @@ std::vector<Detection> Detector::run_inference(const cv::Mat& frame) {
 
             boxes.push_back(cv::Rect(left, top, width, height));
             confs.push_back(confidence);
-            class_ids.push_back(0); // å‡è®¾åªæœ‰ä¸€ç±»ï¼šFire
+            class_ids.push_back(0); // ¼ÙÉèÖ»ÓĞÒ»Àà£ºFire
         }
     }
 
-    // 4. éæå¤§å€¼æŠ‘åˆ¶ (NMS)
+    // 4. ·Ç¼«´óÖµÒÖÖÆ (NMS)
     std::vector<int> indices;
     cv::dnn::NMSBoxes(boxes, confs, conf_threshold, nms_threshold, indices);
 
