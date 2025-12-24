@@ -14,6 +14,9 @@ out/
 *.obj
 *.o
 *.pyd
+*.pt
+
+export.py
 
 # VS Code
 
